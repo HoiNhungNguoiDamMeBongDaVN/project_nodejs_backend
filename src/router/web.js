@@ -38,7 +38,12 @@ const initRoute = (app) => {
     router.get('/api/get-all-doctors',doctorController.handleGetAllDoctors);
     router.post('/api/save-infor-doctors',doctorController.handlePostInforDoctors);
 
-    router.get('/api/get-infor-detail-doctor',doctorController.handleGetDetailDoctorInfor)
+    router.get('/api/get-infor-detail-doctor',doctorController.handleGetDetailDoctorInfor);
+
+    router.post('/api/bulk-create-schedule',doctorController.bulkCreateSchedule);
+
+    router.get('/api/schedule-doctor-by-date',doctorController.handleGetScheduleDoctorByDate);
+
 
     return app.use('/', router);
 }
