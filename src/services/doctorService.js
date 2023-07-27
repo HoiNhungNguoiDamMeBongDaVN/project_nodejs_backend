@@ -156,17 +156,10 @@ let bulkCreateScheduleDoctor = async (data) => {
                     where: { doctorid: data.doctorid, date: data.date },
                     attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                 });
-                //convert date
-                if (exiting && exiting.length > 0) {
-                    exiting = exiting.map(item => {
-                        item.date = new Date(item.date).getTime();
-                        return item;
-                    })
-
-                }
                 //check xem du lieu co bi trung ko
+                // dau + de chuyen doi tu string sang number
                 let toCreate = _.differenceWith(schedule, exiting, (a, b) => {
-                    return a.timeType === b.timeType && a.date === b.date
+                    return a.timeType === b.timeType && +a.date === +b.date
                 });
 
                 if (toCreate && toCreate.length > 0) {
@@ -197,7 +190,12 @@ let getScheduleDoctorByDate = (doctorId, date) => {
                     where: {
                         doctorid: doctorId,
                         date: date
-                    }
+                    },
+                    include: [
+                        { model: db.allcodes, as: 'timeData', attributes: ['valueEn', 'valueVi'] }
+                    ],
+                    raw: true,
+                    nest: true
                 });
                 if (!dataSchedule) dataSchedule = [];
                 if (dataSchedule) {
