@@ -89,9 +89,7 @@ let getAllUser = (idUser) => {
             if (idUser && idUser !== 'All') {
                 users = await db.user.findOne({
                     where: { id: idUser },
-                    attributes: { exclude: 'password' },
-                    
-
+                    attributes: { exclude: 'password' }
                 })
             }
             resole(users)

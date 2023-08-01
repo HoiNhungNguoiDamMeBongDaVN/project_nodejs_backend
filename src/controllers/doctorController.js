@@ -80,11 +80,39 @@ let handleGetScheduleDoctorByDate = async (req, res) => {
     }
 }
 
+let handleGetDoctorExtraInforById = async (req, res) => {
+    try {
+        let data = await doctorService.getDoctorExtraInforById(req.query.doctorid);
+        return res.status(200).json(data)
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+        })
+    }
+}
+
+let handleGetProfileDoctorById = async (req, res) => {
+    try {
+        let data = await doctorService.getProfileDoctorById(req.query.doctorid);
+        return res.status(200).json(data)
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+        })
+    }
+}
+
 module.exports = {
     handleGetTopDoctor: handleGetTopDoctor,
     handleGetAllDoctors: handleGetAllDoctors,
     handlePostInforDoctors: handlePostInforDoctors,
     handleGetDetailDoctorInfor: handleGetDetailDoctorInfor,
     bulkCreateSchedule: bulkCreateSchedule,
-    handleGetScheduleDoctorByDate: handleGetScheduleDoctorByDate
+    handleGetScheduleDoctorByDate: handleGetScheduleDoctorByDate,
+    handleGetDoctorExtraInforById: handleGetDoctorExtraInforById,
+    handleGetProfileDoctorById: handleGetProfileDoctorById
 }

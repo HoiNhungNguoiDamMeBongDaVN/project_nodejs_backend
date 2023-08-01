@@ -43,6 +43,10 @@ const initRoute = (app) => {
     router.post('/api/bulk-create-schedule',doctorController.bulkCreateSchedule);
 
     router.get('/api/schedule-doctor-by-date',doctorController.handleGetScheduleDoctorByDate);
+    router.get('/api/get-extra-infor-doctor',doctorController.handleGetDoctorExtraInforById);
+
+    router.get('/api/get-profile-doctor-by-id',doctorController.handleGetProfileDoctorById);
+
 
 
     return app.use('/', router);

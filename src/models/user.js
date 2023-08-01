@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       user.belongsTo(models.allcodes,{foreignKey:'positionid',targetKey:"keyMap",as:'positionData'}),
       user.belongsTo(models.allcodes,{foreignKey:'gender',targetKey:'keyMap',as:'genderData'}),
-      user.hasOne(models.markdowns,{foreignKey:'doctorid'})
+      user.hasOne(models.markdowns,{foreignKey:'doctorid'}),
+      user.hasOne(models.doctorinfor,{foreignKey:'doctorid'})
     }
   }
   user.init({
