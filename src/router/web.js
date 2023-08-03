@@ -3,6 +3,9 @@ import express from "express";
 import homeController from "../controllers/homeController";
 import userController from '../controllers/userController';
 import doctorController from '../controllers/doctorController';
+import patienController from '../controllers/patienController';
+
+
 
 let router = express.Router();
 
@@ -32,7 +35,7 @@ const initRoute = (app) => {
 
     router.get('/api/get-allcodes',userController.handleGetAllCodes);
 
-    //API page home
+    //API page home doctor
     router.get('/api/top-doctor-home',doctorController.handleGetTopDoctor);
 
     router.get('/api/get-all-doctors',doctorController.handleGetAllDoctors);
@@ -46,6 +49,13 @@ const initRoute = (app) => {
     router.get('/api/get-extra-infor-doctor',doctorController.handleGetDoctorExtraInforById);
 
     router.get('/api/get-profile-doctor-by-id',doctorController.handleGetProfileDoctorById);
+
+    //API booking
+    router.post('/api/create-patient-book-appointment',patienController.handleCreatePatienBookAppointment);
+
+    // API verify booking
+    router.post('/api/verify-patient-book-appointment',patienController.handleVerifyPatienBookAppointment);
+    
 
 
 

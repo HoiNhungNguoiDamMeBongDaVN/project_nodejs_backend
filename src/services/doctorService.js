@@ -237,7 +237,8 @@ let getScheduleDoctorByDate = (doctorId, date) => {
                         date: date
                     },
                     include: [
-                        { model: db.allcodes, as: 'timeData', attributes: ['valueEn', 'valueVi'] }
+                        { model: db.allcodes, as: 'timeData', attributes: ['valueEn', 'valueVi'] },
+                        { model: db.user, as: 'doctorData', attributes: ['firstName', 'lastName'] }
                     ],
                     raw: true,
                     nest: true
@@ -307,7 +308,7 @@ let getProfileDoctorById = (idDoctor) => {
                     where: { id: idDoctor },
                     attributes: { exclude: ['password'] },
                     include: [
-                        { model: db.markdowns, attributes: ['id', 'contentHTML', 'contentMarkdown', 'descriptions', 'doctorid'] },  
+                        { model: db.markdowns, attributes: ['id', 'contentHTML', 'contentMarkdown', 'descriptions', 'doctorid'] },
                         {
                             model: db.doctorinfor,
                             attributes: { exclude: ['id', 'doctorid', 'createdAt', 'updatedAt'] },
