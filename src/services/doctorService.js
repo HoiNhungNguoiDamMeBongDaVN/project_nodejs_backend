@@ -20,6 +20,12 @@ let getTopDoctorHome = (limitInput) => {
                 raw: true,
                 nest: true
             });
+            if (allDoctor && allDoctor.length > 0) {
+                allDoctor.map(item => {
+                    item.image = Buffer.from(item.image, 'base64').toString('binary');
+                    return item;
+                })
+            }
             resolve({
                 errCode: 0,
                 message: "Ok",
@@ -49,14 +55,33 @@ let getAllDoctors = () => {
     })
 }
 
+let checkReuireFiels = (data) => {
+    let arr = ['doctorid', 'contentHTML', 'contentMarkdown', 'action', 'selectPrice', 'selectPayment', 'selectProvice', 'nameClinic', 'nameAddress', 'note', 'selectSpecialtyId']
+
+    let isCheck = true;
+    let element = '';
+    for (let i = 0; i < arr.length; i++) {
+        if (!data[arr[i]]) {
+            isCheck = false;
+            element = arr[i]
+            break;
+        }
+    }
+    return {
+        isCheck: isCheck,
+        element: element
+    }
+}
+
 let saveInforDoctor = (data) => {
 
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.doctorid || !data.contentHTML || !data.contentMarkdown || !data.action || !data.selectPrice || !data.selectPayment || !data.selectProvice || !data.nameClinic || !data.nameAddress || !data.note) {
+            let check = checkReuireFiels(data)
+            if (check.isCheck === false) {
                 resolve({
                     errCode: 1,
-                    message: "Missing parameter"
+                    message: `Missing parameter: ${check.element}`
                 });
             }
             else {
@@ -97,6 +122,8 @@ let saveInforDoctor = (data) => {
 
                 if (dataDoctorinfor) {
                     await db.doctorinfor.update({
+                        specialtyid: data.selectSpecialtyId,
+                        clinicid: data.selectClinicId,
                         priceid: data.selectPrice,
                         proviceid: data.selectProvice,
                         paymentid: data.selectPayment,
@@ -109,6 +136,8 @@ let saveInforDoctor = (data) => {
                 }
                 else {
                     await db.doctorinfor.create({
+                        specialtyid: data.selectSpecialtyId,
+                        clinicid: data.selectClinicId,
                         doctorid: data.doctorid,
                         priceid: data.selectPrice,
                         proviceid: data.selectProvice,

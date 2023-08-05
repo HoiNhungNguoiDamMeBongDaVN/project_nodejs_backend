@@ -4,6 +4,7 @@ import homeController from "../controllers/homeController";
 import userController from '../controllers/userController';
 import doctorController from '../controllers/doctorController';
 import patienController from '../controllers/patienController';
+import specialtyController from '../controllers/specialtyController'
 
 
 
@@ -55,6 +56,15 @@ const initRoute = (app) => {
 
     // API verify booking
     router.post('/api/verify-patient-book-appointment',patienController.handleVerifyPatienBookAppointment);
+
+
+    //API specialty 
+    router.post('/api/create-specialty',specialtyController.handleCreateSpecialty);
+    router.get('/api/get-all-specialty',specialtyController.handleGetAllSpecialty);
+    router.get('/api/get-detail-specialty-by-id',specialtyController.handleGetDetailSpecialtyById);
+
+
+
     
 
 
