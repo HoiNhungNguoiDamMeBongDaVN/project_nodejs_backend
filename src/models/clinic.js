@@ -16,8 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   clinics.init({
     name: DataTypes.STRING,
     address: DataTypes.STRING,
-    description: DataTypes.STRING,
-    image:DataTypes.STRING
+    description:DataTypes.TEXT('long'),
+    descriptionHtmlShort:DataTypes.TEXT('long'),
+    descriptionHTML: DataTypes.TEXT('long'),
+    descriptionMarkdown: DataTypes.TEXT('long'),
+    image: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'clinics',

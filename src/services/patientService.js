@@ -14,7 +14,7 @@ let buildUrlEmail = (doctorid, token) => {
 let createPatienBookAppointment = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.email || !data.doctorid || !data.timeType || !data.date || !data.fullname || !data.nameDoctor) {
+            if (!data.email || !data.doctorid || !data.timeType || !data.date || !data.fullname || !data.nameDoctor || !data.selectGender || !data.address || !data.fullname) {
                 resolve({
                     errCode: 1,
                     message: "Missing parameter"
@@ -35,6 +35,9 @@ let createPatienBookAppointment = (data) => {
                 let user = await db.user.findOrCreate({
                     where: { email: data.email },
                     defaults: {
+                        firstName: data.fullname,
+                        gender: data.selectGender,
+                        address: data.address,
                         email: data.email,
                         roleid: "R3"
                     }
@@ -75,23 +78,23 @@ let verifyPatienBookAppointment = (data) => {
                 });
             }
             else {
-                let appoinment = await db.bookings.findOne({
+                let appointment = await db.bookings.findOne({
                     where: { doctorid: data.doctorid, token: data.token, statusid: 'S1' },
                     raw: false
                 })
-                if (appoinment) {
-                    await appoinment.update({
+                if (appointment) {
+                    await appointment.update({
                         statusid: 'S2'
                     });
                     resolve({
                         errCode: 0,
-                        message: "Update appoinment success!"
+                        message: "Update appointment success!"
                     })
                 }
                 else {
                     resolve({
                         errCode: 2,
-                        message: "Appoinment has been activated or does not exist!"
+                        message: "appointment has been activated or does not exist!"
                     })
                 }
             }
@@ -101,7 +104,107 @@ let verifyPatienBookAppointment = (data) => {
     })
 }
 
+let getListPatient = (id, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!id || !date) {
+                resolve({
+                    errCode: 1,
+                    message: "Missing parameter"
+                });
+            }
+            else {
+                let dataPatient = await db.bookings.findAll({
+                    where: { doctorid: id, date: date, statusid: 'S2' },
+                    include: [
+                        {
+                            model: db.user, as: 'dataPatient', attributes: ['email', 'firstName', 'address', 'gender'],
+
+                            include: [
+                                { model: db.allcodes, as: 'genderData', attributes: ['valueEn', 'valueVi'] }
+                            ]
+                        },
+                        {
+                            model: db.allcodes, as: 'timeDetail', attributes: ['valueEn', 'valueVi']
+                        }
+                    ],
+                    raw: false, nest: true
+                });
+                resolve({
+                    errCode: 0,
+                    message: "OK",
+                    data: dataPatient
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            reject(error);
+        }
+    })
+}
+
+let sendRemedyPatient = (data) => {
+    // console.log(data, "co j ko");
+    // return;
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.email || !data.file || !data.doctorid || !data.patientid || !data.timeType) {
+                resolve({
+                    errCode: 1,
+                    message: "Missing parameter"
+                });
+            }
+            else {
+                let appointment = await db.bookings.findOne({
+                    where: { doctorid: data.doctorid, patienid: data.patientid, time_type: data.timeType, statusid: "S2" },
+                    raw: false
+                })
+                if (appointment) {
+                    await appointment.update({
+                        statusid: 'S3'
+                    });
+                }
+                await emailservice.sendAttachments(data);
+                resolve({
+                    errCode: 0,
+                    message: "Update appoinment success!"
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+        // try {
+        //     if (!data.email || !data.image || !data.doctorid || !data.patientid || !data.timeType) {
+        //         resolve({
+        //             errCode: 1,
+        //             message: "Missing parameter"
+        //         });
+        //     }
+        //     else {
+
+        //         let appointment = await db.bookings.findOne({
+        //             where: { doctorid: data.doctorid, patienid: data.patientid, time_type: data.timeType, statusid: "S2" },
+        //             raw: false
+        //         })
+        //         if (appointment) {
+        //             await appointment.update({
+        //                 statusid: 'S3'
+        //             });
+        //         }
+        //         await emailservice.sendAttachments(data);
+        //         resolve({
+        //             errCode: 0,
+        //             message: "Update appoinment success!"
+        //         })
+        //     }
+        // } catch (error) {
+        //     reject(error);
+        // }
+    })
+}
+
 module.exports = {
     createPatienBookAppointment: createPatienBookAppointment,
-    verifyPatienBookAppointment: verifyPatienBookAppointment
+    verifyPatienBookAppointment: verifyPatienBookAppointment,
+    getListPatient: getListPatient, sendRemedyPatient: sendRemedyPatient
 }

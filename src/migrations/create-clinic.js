@@ -10,16 +10,31 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       address: {
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('long'),
+        allowNull: false
+      },
+      descriptionHtmlShort: {
+        type: Sequelize.TEXT('long'),
+        allowNull: false
+      },
+      descriptionHTML: {
+        type: Sequelize.TEXT('long'),
+        allowNull: false
+      },
+      descriptionMarkdown: {
+        type: Sequelize.TEXT('long'),
+        allowNull: false
       },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long'),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

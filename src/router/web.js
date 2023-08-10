@@ -4,7 +4,8 @@ import homeController from "../controllers/homeController";
 import userController from '../controllers/userController';
 import doctorController from '../controllers/doctorController';
 import patienController from '../controllers/patienController';
-import specialtyController from '../controllers/specialtyController'
+import specialtyController from '../controllers/specialtyController';
+import clinicController from '../controllers/clinicController';
 
 
 
@@ -34,38 +35,44 @@ const initRoute = (app) => {
     router.put('/api/edit-user', userController.handleEditUser);
     router.delete('/api/delete-user', userController.handleDeleteUser);
 
-    router.get('/api/get-allcodes',userController.handleGetAllCodes);
+    router.get('/api/get-allcodes', userController.handleGetAllCodes);
 
     //API page home doctor
-    router.get('/api/top-doctor-home',doctorController.handleGetTopDoctor);
+    router.get('/api/top-doctor-home', doctorController.handleGetTopDoctor);
 
-    router.get('/api/get-all-doctors',doctorController.handleGetAllDoctors);
-    router.post('/api/save-infor-doctors',doctorController.handlePostInforDoctors);
+    router.get('/api/get-all-doctors', doctorController.handleGetAllDoctors);
+    router.post('/api/save-infor-doctors', doctorController.handlePostInforDoctors);
 
-    router.get('/api/get-infor-detail-doctor',doctorController.handleGetDetailDoctorInfor);
+    router.get('/api/get-infor-detail-doctor', doctorController.handleGetDetailDoctorInfor);
 
-    router.post('/api/bulk-create-schedule',doctorController.bulkCreateSchedule);
+    router.post('/api/bulk-create-schedule', doctorController.bulkCreateSchedule);
 
-    router.get('/api/schedule-doctor-by-date',doctorController.handleGetScheduleDoctorByDate);
-    router.get('/api/get-extra-infor-doctor',doctorController.handleGetDoctorExtraInforById);
+    router.get('/api/schedule-doctor-by-date', doctorController.handleGetScheduleDoctorByDate);
+    router.get('/api/get-extra-infor-doctor', doctorController.handleGetDoctorExtraInforById);
 
-    router.get('/api/get-profile-doctor-by-id',doctorController.handleGetProfileDoctorById);
+    router.get('/api/get-profile-doctor-by-id', doctorController.handleGetProfileDoctorById);
 
     //API booking
-    router.post('/api/create-patient-book-appointment',patienController.handleCreatePatienBookAppointment);
+    router.post('/api/create-patient-book-appointment', patienController.handleCreatePatienBookAppointment);
 
     // API verify booking
-    router.post('/api/verify-patient-book-appointment',patienController.handleVerifyPatienBookAppointment);
+    router.post('/api/verify-patient-book-appointment', patienController.handleVerifyPatienBookAppointment);
 
 
     //API specialty 
-    router.post('/api/create-specialty',specialtyController.handleCreateSpecialty);
-    router.get('/api/get-all-specialty',specialtyController.handleGetAllSpecialty);
-    router.get('/api/get-detail-specialty-by-id',specialtyController.handleGetDetailSpecialtyById);
+    router.post('/api/create-specialty', specialtyController.handleCreateSpecialty);
+    router.get('/api/get-all-specialty', specialtyController.handleGetAllSpecialty);
+    router.get('/api/get-detail-specialty-by-id', specialtyController.handleGetDetailSpecialtyById);
 
 
+    //API clinic 
+    router.post('/api/create-clinic', clinicController.handleCreateclinic);
+    router.get('/api/get-all-clinic', clinicController.handleGetAllClinic);
+    router.get('/api/get-detail-clinic-by-id', clinicController.handleGetDetailClinicById);
 
-    
+    //API manage patient
+    router.get('/api/get-list-patient', patienController.handleGetListPatient);
+    router.post('/api/send-remedy-patient', patienController.handleSendRemedyPatient);
 
 
 

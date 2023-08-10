@@ -12,13 +12,10 @@ let sendSimpleEmail = async (dataSend) => {
             pass: process.env.EMAIL_APP_PASSWORD,
         }
     });
-
-    // async..await is not allowed in global scope, must use a wrapper
     const info = await transporter.sendMail({
-        from: '"Kha Ho 👻" <zukanopro2002@gmail.com>', // sender address
-        to: dataSend.reciverEmail, // list of receivers
-        subject: "Thông tin đặt lịch khám bệnh ✔", // Subject line
-        // text: "Hello world?", // plain text body
+        from: '"Kha Ho 👻" <zukanopro2002@gmail.com>',
+        to: dataSend.reciverEmail,
+        subject: changeSubject(dataSend),
         html: getBodyHTMLEmail(dataSend),
     });
 }
@@ -52,8 +49,73 @@ let getBodyHTMLEmail = (dataSend) => {
     return result;
 }
 
+let sendAttachments = async (dataSend) => {
+    // console.log(dataSend.file,"ra cai j");
+    // return;
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_APP,
+            pass: process.env.EMAIL_APP_PASSWORD,
+        }
+    });
 
+    const info = await transporter.sendMail({
+        from: '"Kha Ho 👻" <zukanopro2002@gmail.com>',
+        to: dataSend.email,
+        subject: changeSubject(dataSend),
+        html: getBodyHTMLEmailRemedy(dataSend),
+        attachments: [
+            {
+                filename: 'file.txt',
+                content: dataSend.file,
+                encoding: 'utf-8'
+                // filename: 'file.docx',
+                // content: dataSend.file.split(',')[1],  // Data URL format: data:image/jpeg;base64, ...
+                // encoding: 'utf-8'
+            },
+        ]
+    });
+}
+
+
+let changeSubject = (dataSend) => {
+    let result = '';
+    if (dataSend.language === 'vi') {
+        result = 'Thông tin đặt lịch khám bệnh ✔';
+    }
+    else {
+        result = 'Medical Appointment Booking Information ✔';
+    }
+    return result;
+}
+
+let getBodyHTMLEmailRemedy = (dataSend) => {
+    let result = '';
+    if (dataSend.language === 'vi') {
+        result = `
+        <h3>Xin chào ${dataSend.namePatient}</h3>
+        <p>Bạn nhận được email thì đã khám bệnh thành công !</p>
+        <p>Thông tin đơn thuốc:</p>
+        <div><b ><i style="color:#737574">Đơn thuốc của bạn được gửi ở file bên dưới.</i></b></div>
+        <div><span>Xin chân thành cảm ơn!</span></div>
+        `
+    }
+    else {
+        result = `
+        <h3>Hello ${dataSend.namePatient}</h3>
+        <p>You have received the email, the medical examination was successful!</p>
+        <p>Prescription information:</p>
+        <div><b ><i style="color:#737574">Your prescription is sent in the file below.</i></b></div>
+        <div><span>Thank you sincerely!</span></div>
+        `
+    }
+    return result;
+}
 
 module.exports = {
-    sendSimpleEmail: sendSimpleEmail
+    sendSimpleEmail: sendSimpleEmail,
+    sendAttachments: sendAttachments
 }
