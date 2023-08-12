@@ -20,6 +20,38 @@ let handleLogin = async (req, res) => {
     });
 }
 
+//function get account
+let handleChangeAccount = async (req, res) => {
+    // console.log(req.body, "hmmm");
+    // return;
+    let email = req.body.email;
+    if (!email) {
+        return res.status(500).json({
+            errCode: 1,
+            message: "Missing input parameter!"
+        });
+    }
+    let userData = await userService.changeAccount(req.body);
+    return res.status(200).json({
+        errCode: 0,
+        message: "ok",
+        // user: userData.user ? userData.user : {}
+    });
+}
+
+// function change account password
+let handleChangePasswordAccount = async (req, res) => {
+    try {
+        let data = await userService.changePasswordAccount(req.body);
+        return res.status(200).json(data);
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server'
+        })
+    }
+}
+
 //function get all user
 let handleGetAllUser = async (req, res) => {
     let id = req.query.id;
@@ -57,7 +89,7 @@ let handleEditUser = async (req, res) => {
             errCode: 1,
             message: "Missing required parameters"
         })
-        
+
     }
 }
 
@@ -68,15 +100,15 @@ let handleDeleteUser = async (req, res) => {
 }
 
 
-let handleGetAllCodes=async(req,res)=>{
+let handleGetAllCodes = async (req, res) => {
     try {
-        let type=req.query.type;
-        let data= await userService.getAllCodesService(type);
+        let type = req.query.type;
+        let data = await userService.getAllCodesService(type);
         return res.status(200).json(data);
     } catch (error) {
         return res.status(200).json({
-            errCode:-1,
-            message:'Error from server'
+            errCode: -1,
+            message: 'Error from server'
         })
     }
 }
@@ -89,5 +121,7 @@ module.exports = {
     handleCreateUser: handleCreateUser,
     handleEditUser: handleEditUser,
     handleDeleteUser: handleDeleteUser,
-    handleGetAllCodes:handleGetAllCodes
+    handleGetAllCodes: handleGetAllCodes,
+    handleChangeAccount: handleChangeAccount,
+    handleChangePasswordAccount: handleChangePasswordAccount
 }

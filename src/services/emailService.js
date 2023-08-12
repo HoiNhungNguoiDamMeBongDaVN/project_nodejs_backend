@@ -49,6 +49,65 @@ let getBodyHTMLEmail = (dataSend) => {
     return result;
 }
 
+
+
+let sendChangeAcccountPassword = async (dataSend) => {
+    // console.log(dataSend.file,"ra cai j");
+    // return;
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_APP,
+            pass: process.env.EMAIL_APP_PASSWORD,
+        }
+    });
+
+    const info = await transporter.sendMail({
+        from: '"Kha Ho 👻" <zukanopro2002@gmail.com>',
+        to: dataSend.email,
+        subject: changePasswordSubject(dataSend),
+        html: getBodyHTMLEmailChangePassword(dataSend),
+
+    });
+}
+
+let getBodyHTMLEmailChangePassword = (dataSend) => {
+    let result = '';
+    if (dataSend.language === 'vi') {
+        result = `
+        <h3>Xin chào bạn</h3>
+        <p>Bạn nhận được email thì bạn đã nhấn xác nhận thay đổi password!</p>
+        <div><b ><i style="color:#737574">Nếu bạn thật sự muốn thay đổi password, vui long click vào đường link này để hoàn thành việc thay đổi mật khẩu!</i></b></div>
+        <a href=${dataSend.redirectLink} target="_blank">Click here!</a>
+        <div><span>Xin chân thành cảm ơn!</span></div>
+        `
+    }
+    else {
+        result = `
+        <h3>Hello you</h3>
+        <p>You have received an email, you have pressed confirm password change!</p>
+        <div><b ><i style="color:#737574">
+        If you really want to change your password, please click on this link to complete the password change!</i></b></div>
+        <a href=${dataSend.redirectLink} target="_blank">Click here!</a>
+        <div><span>Thank you sincerely!</span></div>
+        `
+    }
+    return result;
+}
+
+let changePasswordSubject = (dataSend) => {
+    let result = '';
+    if (dataSend.language === 'vi') {
+        result = 'Thông tin thay đổi mật khẩu ✔';
+    }
+    else {
+        result = 'Password change information ✔';
+    }
+    return result;
+}
+
 let sendAttachments = async (dataSend) => {
     // console.log(dataSend.file,"ra cai j");
     // return;
@@ -79,7 +138,6 @@ let sendAttachments = async (dataSend) => {
         ]
     });
 }
-
 
 let changeSubject = (dataSend) => {
     let result = '';
@@ -117,5 +175,6 @@ let getBodyHTMLEmailRemedy = (dataSend) => {
 
 module.exports = {
     sendSimpleEmail: sendSimpleEmail,
-    sendAttachments: sendAttachments
+    sendAttachments: sendAttachments,
+    sendChangeAcccountPassword: sendChangeAcccountPassword
 }

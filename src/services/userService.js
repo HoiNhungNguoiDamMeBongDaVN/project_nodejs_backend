@@ -1,7 +1,14 @@
 import allcode from "../models/allcode";
 import db from "../models/index";
 import bcrypt from 'bcryptjs';
+import { sendChangeAcccountPassword } from "../services/emailService"
 const salt = bcrypt.genSaltSync(10);
+
+let buildUrlEmail = (email) => {
+    let result = `${process.env.URL_REACT}/changeAccount?${email}`;
+    return result;
+
+}
 
 let handleUserLogin = (emailUser, passwordUser) => {
     return new Promise(async (resolve, reject) => {
@@ -44,6 +51,61 @@ let handleUserLogin = (emailUser, passwordUser) => {
     })
 }
 
+
+let changeAccount = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let existEmail = await checkEmailExist(data.email);
+            if (existEmail) {
+                await sendChangeAcccountPassword({
+                    email: data.email,
+                    language: data.language,
+                    redirectLink: buildUrlEmail(data.email)
+                });
+                resolve({
+                    errCode: 0,
+                    message: "Get account success!"
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+let changePasswordAccount = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.password || !data.email) {
+                resolve({
+                    errCode: 1,
+                    message: "Missing input parameter!"
+                })
+            }
+            else {
+                let user = await db.user.findOne({
+                    where: { email: data.email },
+                    raw: true
+                });
+                if (user) {
+                    let hashPasswordBcrypt = await hashPassword(data.password);
+                    await db.user.update({
+                        password: hashPasswordBcrypt
+                    },
+                        {
+                            where: { email: data.email }
+                        });
+                }
+                resolve({
+                    errCode: 0,
+                    message: "Change account success!"
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 let checkEmailExist = (userEmail) => {
     return new Promise(async (resolve, reject) => {
@@ -253,5 +315,7 @@ module.exports = {
     createUser: createUser,
     deleteUser: deleteUser,
     updateUser: updateUser,
-    getAllCodesService: getAllCodesService
+    getAllCodesService: getAllCodesService,
+    changeAccount: changeAccount,
+    changePasswordAccount: changePasswordAccount
 }

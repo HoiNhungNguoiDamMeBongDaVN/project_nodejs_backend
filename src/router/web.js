@@ -26,6 +26,9 @@ const initRoute = (app) => {
     router.get('/delete-user', homeController.deleteUse);
 
     //create api
+    //api change account
+    router.post('/api/change_account', userController.handleChangeAccount);
+    router.post('/api/change_passwordAccount', userController.handleChangePasswordAccount);
     //api check login account
     router.post('/api/login', userController.handleLogin);
 
