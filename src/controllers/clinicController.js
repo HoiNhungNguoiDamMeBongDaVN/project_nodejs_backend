@@ -6,7 +6,7 @@ let handleCreateclinic = async (req, res) => {
         let dataClinic = await clinicService.createClinic(req.body);
         return res.status(200).json(dataClinic);
     } catch (error) {
-        console.log(error,"me");
+        console.log(error);
         return res.status(200).json({
             errCode: -1,
             message: 'Error from server'

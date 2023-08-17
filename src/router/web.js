@@ -6,8 +6,8 @@ import doctorController from '../controllers/doctorController';
 import patienController from '../controllers/patienController';
 import specialtyController from '../controllers/specialtyController';
 import clinicController from '../controllers/clinicController';
-
-
+import handbookController from '../controllers/handbookController';
+import handcountController from '../controllers/countController';
 
 let router = express.Router();
 
@@ -77,7 +77,12 @@ const initRoute = (app) => {
     router.get('/api/get-list-patient', patienController.handleGetListPatient);
     router.post('/api/send-remedy-patient', patienController.handleSendRemedyPatient);
 
+    //API handbook
+    router.post('/api/create-handbook', handbookController.handleCreateHandbook);
+    router.get('/api/get-all-handbook', handbookController.handleGetHandbook);
 
+    //API count sum doctor, patient, clinic, specialty
+    router.get('/api/count-dashboard', handcountController.handleCountDashboard);
 
     return app.use('/', router);
 }
