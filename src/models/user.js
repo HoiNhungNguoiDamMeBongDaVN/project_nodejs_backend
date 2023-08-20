@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
       user.hasMany(models.schedules,{foreignKey:'doctorid',as:'doctorData'})
 
-      // user.hasMany(models.bookings,{foreignKey:'patienid',as:'dataPatient'})
+      user.hasMany(models.bookings,{foreignKey:'patienid',as:'dataPatient'})
 
     }
   }
