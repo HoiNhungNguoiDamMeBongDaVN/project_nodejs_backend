@@ -72,8 +72,7 @@ let getDetailClinicById = async (idData) => {
                     where: {
                         id: idData
                     },
-                    attributes: ['name','address','description', 'descriptionHtmlShort', 'descriptionHtml', 'descriptionMarkdown']
-                    // attributes: ['name','address','description', 'descriptionHtmlShort','descriptionMarkdown']
+                    attributes: ['name','address','description', 'descriptionHtmlShort', 'descriptionHTML', 'descriptionMarkdown']
                 })
                 if (data) {
                     let doctorClinic = [];
