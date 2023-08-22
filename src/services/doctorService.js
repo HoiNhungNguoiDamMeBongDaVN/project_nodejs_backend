@@ -229,7 +229,7 @@ let bulkCreateScheduleDoctor = async (data) => {
                 }
                 //check data exist
                 let exiting = await db.schedules.findAll({
-                    where: { doctorid: data.doctorid, date: data.date },
+                    where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
                     attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                 });
                 //check xem du lieu co bi trung ko
