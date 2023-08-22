@@ -3,7 +3,7 @@ import db from "../models/index";
 require('dotenv').config();
 const _ = require('lodash');
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
-const { Op } = require("sequelize");
+
 let getTopDoctorHome = (limitInput) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -12,10 +12,12 @@ let getTopDoctorHome = (limitInput) => {
                 where: { roleid: "R2" },
                 limit: parseInt(limitInput),
                 order: [['createdAt', 'DESC']],
-                attributes: { exclude: 'password' },
+                attributes: { exclude: ['password'] },
                 include: [
                     { model: db.allcodes, as: 'positionData', attributes: ['valueEn', 'valueVi'] },
-                    { model: db.allcodes, as: 'genderData', attributes: ['valueEn', 'valueVi'] }
+                    { model: db.allcodes, as: 'genderData', attributes: ['valueEn', 'valueVi'] },
+                    { model: db.doctorinfor, attributes: ['note'] }
+
                 ],
                 raw: true,
                 nest: true
@@ -225,18 +227,17 @@ let bulkCreateScheduleDoctor = async (data) => {
                         return item;
                     })
                 }
-                const doctorIdBigInt = BigInt(data.doctorid);
                 //check data exist
                 let exiting = await db.schedules.findAll({
-                    where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
+                    where: { doctorid: data.doctorid, date: data.date },
                     attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                 });
-
                 //check xem du lieu co bi trung ko
                 // dau + de chuyen doi tu string sang number
                 let toCreate = _.differenceWith(schedule, exiting, (a, b) => {
                     return a.timeType === b.timeType && +a.date === +b.date
                 });
+
                 if (toCreate && toCreate.length > 0) {
                     await db.schedules.bulkCreate(toCreate);
                 }

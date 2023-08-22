@@ -10,14 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      user.belongsTo(models.allcodes,{foreignKey:'positionid',targetKey:"keyMap",as:'positionData'}),
-      user.belongsTo(models.allcodes,{foreignKey:'gender',targetKey:'keyMap',as:'genderData'}),
-      user.hasOne(models.markdowns,{foreignKey:'doctorid'}),
-      user.hasOne(models.doctorinfor,{foreignKey:'doctorid'}),
+      user.belongsTo(models.allcodes, { foreignKey: 'positionid', targetKey: "keyMap", as: 'positionData' }),
+        user.belongsTo(models.allcodes, { foreignKey: 'gender', targetKey: 'keyMap', as: 'genderData' }),
+        user.hasOne(models.markdowns, { foreignKey: 'doctorid' }),
+        user.hasOne(models.doctorinfor, { foreignKey: 'doctorid' }),
 
-      user.hasMany(models.schedules,{foreignKey:'doctorid',as:'doctorData'})
+        user.hasMany(models.schedules, { foreignKey: 'doctorid', as: 'doctorData' })
 
-      user.hasMany(models.bookings,{foreignKey:'patienid',as:'dataPatient'})
+        // user.belongsTo(models.doctorinfor, { foeirgnKey: 'doctorid' })
+
+
+      // user.hasMany(models.bookings,{foreignKey:'patienid',as:'dataPatient'})
 
     }
   }
