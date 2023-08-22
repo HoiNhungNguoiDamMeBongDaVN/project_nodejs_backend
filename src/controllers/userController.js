@@ -22,8 +22,6 @@ let handleLogin = async (req, res) => {
 
 //function get account
 let handleChangeAccount = async (req, res) => {
-    // console.log(req.body, "hmmm");
-    // return;
     let email = req.body.email;
     if (!email) {
         return res.status(500).json({

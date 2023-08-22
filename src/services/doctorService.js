@@ -156,7 +156,6 @@ let saveInforDoctor = (data) => {
                 });
             }
         } catch (error) {
-            console.log(error, "loi gi o day");
             reject(error)
         }
     })

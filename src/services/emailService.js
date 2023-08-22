@@ -52,8 +52,6 @@ let getBodyHTMLEmail = (dataSend) => {
 
 
 let sendChangeAcccountPassword = async (dataSend) => {
-    // console.log(dataSend.file,"ra cai j");
-    // return;
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
@@ -109,8 +107,6 @@ let changePasswordSubject = (dataSend) => {
 }
 
 let sendAttachments = async (dataSend) => {
-    // console.log(dataSend.file,"ra cai j");
-    // return;
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,

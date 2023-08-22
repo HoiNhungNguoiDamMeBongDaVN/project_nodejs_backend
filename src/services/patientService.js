@@ -137,15 +137,12 @@ let getListPatient = (id, date) => {
                 });
             }
         } catch (error) {
-            console.log(error);
             reject(error);
         }
     })
 }
 
 let sendRemedyPatient = (data) => {
-    // console.log(data, "co j ko");
-    // return;
     return new Promise(async (resolve, reject) => {
         try {
             if (!data.email || !data.file || !data.doctorid || !data.patientid || !data.timeType) {
