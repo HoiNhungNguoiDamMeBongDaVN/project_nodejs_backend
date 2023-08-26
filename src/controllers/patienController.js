@@ -6,7 +6,6 @@ let handleCreatePatienBookAppointment = async (req, res) => {
     try {
         let dataPatien = await patientService.createPatienBookAppointment(req.body);
         return res.status(200).json(dataPatien);
-        console.log(req.body, "hu");
     } catch (error) {
         console.log(error, "cc");
         return res.status(200).json({

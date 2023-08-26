@@ -35,17 +35,26 @@ let getAllSpecialty = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let data = await db.specialtys.findAll();
-            if (data && data.length > 0) {
-                data.map(item => {
-                    item.image = Buffer.from(item.image, 'base64').toString('binary');
-                    return item;
+            // if (data && data.length > 0) {
+            //     data.map(item => {
+            //         item.image = Buffer.from(item.image, 'base64').toString('binary');
+            //         return item;
+            //     })
+            // }
+            if(data){
+                resolve({
+                    errCode: 0,
+                    message: "ok",
+                    data: data
                 })
             }
-            resolve({
-                errCode: 0,
-                message: "ok",
-                data: data
-            })
+            else{
+                resolve({
+                    errCode: 1,
+                    message: "Not found data!",
+                    data: data
+                })
+            }
 
         } catch (error) {
             reject(error)
@@ -103,8 +112,74 @@ let getDetailSpecialtyById = async (idData, location) => {
     })
 }
 
+let editSpecialty = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let updatedRows = await db.specialtys.update(
+                {
+                    namespecialty: data.namespecialty,
+                    descriptionHtml: data.descriptionHtml,
+                    descriptionMarkdown: data.descriptionMarkdown,
+                    image: data.imageBase64,
+                    idimage: data.idimage
+                },
+                {
+                    where: { id: data.id }
+                }
+            );
+            if (!updatedRows) {
+                resolve({
+                    errCode: 2,
+                    message: `Cand't Update `
+                });
+            } else {
+                resolve({
+                    errCode: 0,
+                    message: 'Updated user'
+                });
+            }
+
+            resolve({
+                errCode: 1,
+                message: "Missing parameter"
+            });
+
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let deleteSpecialty=(idSpecialty)=>{
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = await db.specialtys.findOne({
+                where: { id: idSpecialty },
+                raw: false
+            });
+            if (!data) {
+                resolve({
+                    errCode: 2,
+                    message: `User ins't user`
+                })
+            }
+            else {
+                await data.destroy();
+                resolve({
+                    errCode: 0,
+                    message: `User deleted`
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+
+    })
+}
+
 module.exports = {
     createSpecialty: createSpecialty,
     getAllSpecialty: getAllSpecialty,
-    getDetailSpecialtyById: getDetailSpecialtyById
+    getDetailSpecialtyById: getDetailSpecialtyById,
+    editSpecialty,deleteSpecialty
 }

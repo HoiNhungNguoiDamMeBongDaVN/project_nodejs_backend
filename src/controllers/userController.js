@@ -93,8 +93,16 @@ let handleEditUser = async (req, res) => {
 
 // function delete user
 let handleDeleteUser = async (req, res) => {
-    let message = await userService.deleteUser(req.body.id);
-    return res.status(200).json(message);
+    try {
+        let message = await userService.deleteUser(req.body.id);
+        return res.status(200).json(message);
+
+    } catch (error) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server'
+        })
+    }
 }
 
 

@@ -22,12 +22,12 @@ let getTopDoctorHome = (limitInput) => {
                 raw: true,
                 nest: true
             });
-            if (allDoctor && allDoctor.length > 0) {
-                allDoctor.map(item => {
-                    item.image = Buffer.from(item.image, 'base64').toString('binary');
-                    return item;
-                })
-            }
+            // if (allDoctor && allDoctor.length > 0) {
+            //     allDoctor.map(item => {
+            //         item.image = Buffer.from(item.image, 'base64').toString('binary');
+            //         return item;
+            //     })
+            // }
             resolve({
                 errCode: 0,
                 message: "Ok",
@@ -156,6 +156,7 @@ let saveInforDoctor = (data) => {
                 });
             }
         } catch (error) {
+            console.log(error, "loi gi o day");
             reject(error)
         }
     })
@@ -191,9 +192,9 @@ let getDetailInforDoctor = (idDoctor) => {
                     raw: true,
                     nest: true
                 });
-                if (inforDoctor && inforDoctor.image) {
-                    inforDoctor.image = Buffer.from(inforDoctor.image, 'base64').toString('binary');
-                }
+                // if (inforDoctor && inforDoctor.image) {
+                //     inforDoctor.image = Buffer.from(inforDoctor.image, 'base64').toString('binary');
+                // }
                 if (!inforDoctor) inforDoctor = {};
                 resolve({
                     errCode: 0,
@@ -228,7 +229,8 @@ let bulkCreateScheduleDoctor = async (data) => {
                 }
                 //check data exist
                 let exiting = await db.schedules.findAll({
-                    where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
+                    where: { doctorid: data.doctorid, date: data.date },
+                    // where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
                     attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                 });
                 //check xem du lieu co bi trung ko

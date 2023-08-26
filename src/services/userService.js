@@ -218,23 +218,28 @@ let hashPassword = (password) => {
 
 let deleteUser = (userId) => {
     return new Promise(async (resolve, reject) => {
-        let data = await db.user.findOne({
-            where: { id: userId },
-            raw: false
-        });
-        if (!data) {
-            resolve({
-                errCode: 2,
-                message: `User ins't user`
-            })
+        try {
+            let data = await db.user.findOne({
+                where: { id: userId },
+                raw: false
+            });
+            if (!data) {
+                resolve({
+                    errCode: 2,
+                    message: `User ins't user`
+                })
+            }
+            else {
+                await data.destroy();
+                resolve({
+                    errCode: 0,
+                    message: `User deleted`
+                })
+            }
+        } catch (error) {
+            reject(error);
         }
-        else {
-            await data.destroy();
-            resolve({
-                errCode: 0,
-                message: `User deleted`
-            })
-        }
+
     })
 }
 
