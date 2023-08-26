@@ -245,6 +245,7 @@ let deleteUser = (userId) => {
 
 
 let updateUser = (data) => {
+
     return new Promise(async (resolve, reject) => {
         try {
             let checkData = await checkUserExist(data.id);
@@ -265,7 +266,8 @@ let updateUser = (data) => {
                         gender: data.gender,
                         roleid: data.roleid,
                         positionid: data.positionid,
-                        image: data.image
+                        image: data.image,
+                        idimage: data.idimage
                     },
                     {
                         where: { id: data.id }

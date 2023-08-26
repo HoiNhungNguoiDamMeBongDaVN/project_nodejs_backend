@@ -355,9 +355,9 @@ let getProfileDoctorById = (idDoctor) => {
                     raw: true,
                     nest: true
                 });
-                if (profileDoctor && profileDoctor.image) {
-                    profileDoctor.image = Buffer.from(profileDoctor.image, 'base64').toString('binary');
-                }
+                // if (profileDoctor && profileDoctor.image) {
+                //     profileDoctor.image = Buffer.from(profileDoctor.image, 'base64').toString('binary');
+                // }
                 if (!profileDoctor) profileDoctor = {};
                 resolve({
                     errCode: 0,
