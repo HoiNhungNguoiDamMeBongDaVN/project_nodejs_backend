@@ -11,20 +11,19 @@ let postImageDoctorAdmin = async (data) => {
                 //deploy production
                 folder: 'image_doctor_admin'
             })
-            console.log(resUploadCloud);
-            // if (resUploadCloud) {
-            //     resolve({
-            //         errCode: 0,
-            //         mesage: "ok",
-            //         data: resUploadCloud
-            //     })
-            // }
-            // else {
-            //     resolve({
-            //         errCode: 1,
-            //         mesage: "not found"
-            //     })
-            // }
+            if (resUploadCloud) {
+                resolve({
+                    errCode: 0,
+                    mesage: "ok",
+                    data: resUploadCloud
+                })
+            }
+            else {
+                resolve({
+                    errCode: 1,
+                    mesage: "not found"
+                })
+            }
         } catch (error) {
             reject({
                 error: error,
