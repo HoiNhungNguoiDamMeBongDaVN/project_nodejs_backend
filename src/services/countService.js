@@ -72,7 +72,7 @@ let countDashboard = async () => {
             let data = [];
             let datadoctor = await db.user.count({
                 where: {
-                    roleid: 'R2',
+                    roleid: 'R3',
                 },
             });
             if (datadoctor) {
@@ -82,7 +82,7 @@ let countDashboard = async () => {
             }
             let datapatient = await db.user.count({
                 where: {
-                    roleid: 'R3',
+                    roleid: 'R2',
                 },
             });
             if (datapatient) {
