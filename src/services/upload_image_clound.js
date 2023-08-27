@@ -5,7 +5,7 @@ let postImageDoctorAdmin = async (data) => {
             // console.log(req.body.data);
             let flieImage = data;
             const resUploadCloud = await cloudinary.uploader.upload(flieImage, {
-                
+
                 // use localhost
                 // upload_preset: 'image_bookingCare'
                 //deploy production
@@ -68,6 +68,40 @@ let postImageSpecialty = async (data) => {
     })
 }
 
+let postImageClinic = async (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // console.log(req.body.data);
+            let flieImage = data;
+            const resUploadCloud = await cloudinary.uploader.upload(flieImage, {
+                // use localhost
+                // upload_preset: 'image_bookingCare'
+                // //deploy production
+                folder: 'image_clinic'
+            })
+            if (resUploadCloud) {
+                resolve({
+                    errCode: 0,
+                    mesage: "ok",
+                    data: resUploadCloud
+                })
+            }
+            else {
+                resolve({
+                    errCode: 2,
+                    mesage: "Can't create image"
+                })
+            }
+        } catch (error) {
+            reject({
+                error: error,
+                errCode: 1,
+                mesage: "not found"
+            })
+        }
+    })
+}
+
 module.exports = {
-    postImageDoctorAdmin,postImageSpecialty
+    postImageDoctorAdmin, postImageSpecialty, postImageClinic
 }

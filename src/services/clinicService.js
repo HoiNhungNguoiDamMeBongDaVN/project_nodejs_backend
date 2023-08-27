@@ -18,7 +18,8 @@ let createClinic = async (data) => {
                     descriptionHtmlShort: data.descriptionHtmlShort,
                     descriptionHTML: data.descriptionHtml,
                     descriptionMarkdown: data.descriptionMarkdown,
-                    image: data.imageBase64
+                    image: data.imageClound,
+                    idimage: data.idimageClound
                 })
                 if (response) {
                     resolve({
@@ -38,12 +39,12 @@ let getAllClinic = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let data = await db.clinics.findAll();
-            if (data && data.length > 0) {
-                data.map(item => {
-                    item.image = Buffer.from(item.image, 'base64').toString('binary');
-                    return item;
-                })
-            }
+            // if (data && data.length > 0) {
+            //     data.map(item => {
+            //         item.image = Buffer.from(item.image, 'base64').toString('binary');
+            //         return item;
+            //     })
+            // }
             resolve({
                 errCode: 0,
                 message: "ok",
@@ -72,7 +73,7 @@ let getDetailClinicById = async (idData) => {
                     where: {
                         id: idData
                     },
-                    attributes: ['name','address','description', 'descriptionHtmlShort', 'descriptionHTML', 'descriptionMarkdown']
+                    attributes: ['name', 'address', 'description', 'descriptionHtmlShort', 'descriptionHTML', 'descriptionMarkdown']
                 })
                 if (data) {
                     let doctorClinic = [];
@@ -99,8 +100,50 @@ let getDetailClinicById = async (idData) => {
     })
 }
 
+let editClinic = async (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let updatedRows = await db.clinics.update(
+                {
+                    name: data.name_clinic,
+                    address: data.address,
+                    description: data.description,
+                    descriptionHtmlShort: data.descriptionHtmlShort,
+                    descriptionHTML: data.descriptionHtml,
+                    descriptionMarkdown: data.descriptionMarkdown,
+                    image: data.imageClound,
+                    idimage: data.idimageClound
+                },
+                {
+                    where: { id: data.id }
+                }
+            );
+            if (!updatedRows) {
+                resolve({
+                    errCode: 2,
+                    message: `Cand't Update `
+                });
+            } else {
+                resolve({
+                    errCode: 0,
+                    message: 'Updated user'
+                });
+            }
+
+            resolve({
+                errCode: 1,
+                message: "Missing parameter"
+            });
+
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     createClinic: createClinic,
     getAllClinic: getAllClinic,
-    getDetailClinicById: getDetailClinicById
+    getDetailClinicById: getDetailClinicById,
+    editClinic
 }

@@ -8,7 +8,7 @@ import specialtyController from '../controllers/specialtyController';
 import clinicController from '../controllers/clinicController';
 import handbookController from '../controllers/handbookController';
 import handcountController from '../controllers/countController';
-import  imageCloudController  from "../controllers/imageCloudController";
+import imageCloudController from "../controllers/imageCloudController";
 
 let router = express.Router();
 
@@ -75,6 +75,7 @@ const initRoute = (app) => {
     //API clinic 
     router.post('/api/create-clinic', clinicController.handleCreateclinic);
     router.get('/api/get-all-clinic', clinicController.handleGetAllClinic);
+    router.put('/api/edit-clinic', clinicController.handleEditClinic);
     router.get('/api/get-detail-clinic-by-id', clinicController.handleGetDetailClinicById);
 
     //API manage patient
@@ -92,6 +93,7 @@ const initRoute = (app) => {
     //api get and upload image cloud
     router.post('/api/upload-image-clound-doctor-admin', imageCloudController.handlePostImageDoctorAdmin);
     router.post('/api/upload-image-clound-specialty', imageCloudController.handlePostImageSpecialty);
+    router.post('/api/upload-image-clound-clinic', imageCloudController.handlePostImageClinic);
     router.get('/api/get-image-clound', imageCloudController.getAllImage);
 
 

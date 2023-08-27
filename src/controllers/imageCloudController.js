@@ -30,6 +30,19 @@ let handlePostImageSpecialty = async (req, res) => {
     }
 }
 
+let handlePostImageClinic = async (req, res) => {
+    try {
+        let response = await upload_image_cloundService.postImageClinic(req.body.data);
+        return res.status(200).json(response);
+
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server'
+        })
+    }
+}
 
 let getAllImage = (req, res) => {
     return new Promise(async (resolve, reject) => {
@@ -57,4 +70,4 @@ let getAllImage = (req, res) => {
     })
 }
 
-module.exports = { handlePostImageDoctorAdmin, getAllImage, handlePostImageSpecialty }
+module.exports = { handlePostImageDoctorAdmin, getAllImage, handlePostImageSpecialty, handlePostImageClinic }
