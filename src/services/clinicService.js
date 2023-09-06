@@ -126,7 +126,7 @@ let editClinic = async (data) => {
             } else {
                 resolve({
                     errCode: 0,
-                    message: 'Updated user'
+                    message: 'Updated clinic success'
                 });
             }
 
@@ -141,9 +141,37 @@ let editClinic = async (data) => {
     })
 }
 
+
+let deleteClinic = async (idClinic) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let data = await db.clinics.findOne({
+                where: { id: idClinic },
+                raw: false
+            });
+            if (!data) {
+                resolve({
+                    errCode: 2,
+                    message: `User ins't user`
+                })
+            }
+            else {
+                await data.destroy();
+                resolve({
+                    errCode: 0,
+                    message: `Clinic deleted success`
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+
+    })
+}
+
 module.exports = {
     createClinic: createClinic,
     getAllClinic: getAllClinic,
     getDetailClinicById: getDetailClinicById,
-    editClinic
+    editClinic, deleteClinic
 }

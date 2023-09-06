@@ -77,6 +77,7 @@ const initRoute = (app) => {
     router.get('/api/get-all-clinic', clinicController.handleGetAllClinic);
     router.put('/api/edit-clinic', clinicController.handleEditClinic);
     router.get('/api/get-detail-clinic-by-id', clinicController.handleGetDetailClinicById);
+    router.delete('/api/delete-clinic-by-id',clinicController.handleDeleteClinic)
 
     //API manage patient
     router.get('/api/get-list-patient', patienController.handleGetListPatient);
