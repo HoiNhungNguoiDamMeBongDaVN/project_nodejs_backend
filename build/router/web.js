@@ -76,6 +76,7 @@ var initRoute = function initRoute(app) {
   //API handbook
   router.post('/api/create-handbook', _handbookController["default"].handleCreateHandbook);
   router.get('/api/get-all-handbook', _handbookController["default"].handleGetHandbook);
+  router.get('/api/get-handbook-by-id', _handbookController["default"].handleGetDetailByIdHandbook);
 
   //API count sum doctor, patient, clinic, specialty
   router.get('/api/count-dashboard', _countController["default"].handleCountDashboard);
@@ -84,6 +85,7 @@ var initRoute = function initRoute(app) {
   router.post('/api/upload-image-clound-doctor-admin', _imageCloudController["default"].handlePostImageDoctorAdmin);
   router.post('/api/upload-image-clound-specialty', _imageCloudController["default"].handlePostImageSpecialty);
   router.post('/api/upload-image-clound-clinic', _imageCloudController["default"].handlePostImageClinic);
+  router.post('/api/upload-image-clound-handbook', _imageCloudController["default"].handlePostImageHandbook);
   router.get('/api/get-image-clound', _imageCloudController["default"].getAllImage);
   return app.use('/', router);
 };

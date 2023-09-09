@@ -98,18 +98,48 @@ var handlePostImageClinic = /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }();
+var handlePostImageHandbook = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var response;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _context4.next = 3;
+          return _upload_image_clound["default"].postImageHandbook(req.body.data);
+        case 3:
+          response = _context4.sent;
+          return _context4.abrupt("return", res.status(200).json(response));
+        case 7:
+          _context4.prev = 7;
+          _context4.t0 = _context4["catch"](0);
+          console.log(_context4.t0);
+          return _context4.abrupt("return", res.status(200).json({
+            errCode: -1,
+            message: 'Error from server'
+          }));
+        case 11:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4, null, [[0, 7]]);
+  }));
+  return function handlePostImageHandbook(_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
 var getAllImage = function getAllImage(req, res) {
   return new Promise( /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(resolve, reject) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(resolve, reject) {
       var _yield$cloudinary$sea, resources, publicIds;
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) switch (_context4.prev = _context4.next) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
           case 0:
-            _context4.prev = 0;
-            _context4.next = 3;
+            _context5.prev = 0;
+            _context5.next = 3;
             return cloudinary.search.expression('folder:image_doctor_admin').sort_by('public_id', 'desc').max_results(30).execute();
           case 3:
-            _yield$cloudinary$sea = _context4.sent;
+            _yield$cloudinary$sea = _context5.sent;
             resources = _yield$cloudinary$sea.resources;
             publicIds = resources.map(function (file) {
               return file.public_id;
@@ -122,24 +152,24 @@ var getAllImage = function getAllImage(req, res) {
                 data: publicIds.url
               });
             }
-            _context4.next = 13;
+            _context5.next = 13;
             break;
           case 10:
-            _context4.prev = 10;
-            _context4.t0 = _context4["catch"](0);
+            _context5.prev = 10;
+            _context5.t0 = _context5["catch"](0);
             reject({
-              error: _context4.t0,
+              error: _context5.t0,
               errCode: 1,
               mesage: "not found"
             });
           case 13:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
-      }, _callee4, null, [[0, 10]]);
+      }, _callee5, null, [[0, 10]]);
     }));
-    return function (_x7, _x8) {
-      return _ref4.apply(this, arguments);
+    return function (_x9, _x10) {
+      return _ref5.apply(this, arguments);
     };
   }());
 };
@@ -147,5 +177,6 @@ module.exports = {
   handlePostImageDoctorAdmin: handlePostImageDoctorAdmin,
   getAllImage: getAllImage,
   handlePostImageSpecialty: handlePostImageSpecialty,
-  handlePostImageClinic: handlePostImageClinic
+  handlePostImageClinic: handlePostImageClinic,
+  handlePostImageHandbook: handlePostImageHandbook
 };

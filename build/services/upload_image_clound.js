@@ -201,8 +201,74 @@ var postImageClinic = /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }();
+var postImageHandbook = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(data) {
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          return _context8.abrupt("return", new Promise( /*#__PURE__*/function () {
+            var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(resolve, reject) {
+              var flieImage, resUploadCloud;
+              return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+                while (1) switch (_context7.prev = _context7.next) {
+                  case 0:
+                    _context7.prev = 0;
+                    // console.log(req.body.data);
+                    flieImage = data;
+                    _context7.next = 4;
+                    return cloudinary.uploader.upload(flieImage, {
+                      // use localhost
+                      // upload_preset: 'image_bookingCare'
+                      // //deploy production
+                      folder: 'image_handbook'
+                    });
+                  case 4:
+                    resUploadCloud = _context7.sent;
+                    if (resUploadCloud) {
+                      resolve({
+                        errCode: 0,
+                        mesage: "ok",
+                        data: resUploadCloud
+                      });
+                    } else {
+                      resolve({
+                        errCode: 2,
+                        mesage: "Can't create image"
+                      });
+                    }
+                    _context7.next = 11;
+                    break;
+                  case 8:
+                    _context7.prev = 8;
+                    _context7.t0 = _context7["catch"](0);
+                    reject({
+                      error: _context7.t0,
+                      errCode: 1,
+                      mesage: "not found"
+                    });
+                  case 11:
+                  case "end":
+                    return _context7.stop();
+                }
+              }, _callee7, null, [[0, 8]]);
+            }));
+            return function (_x11, _x12) {
+              return _ref8.apply(this, arguments);
+            };
+          }()));
+        case 1:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8);
+  }));
+  return function postImageHandbook(_x10) {
+    return _ref7.apply(this, arguments);
+  };
+}();
 module.exports = {
   postImageDoctorAdmin: postImageDoctorAdmin,
   postImageSpecialty: postImageSpecialty,
-  postImageClinic: postImageClinic
+  postImageClinic: postImageClinic,
+  postImageHandbook: postImageHandbook
 };

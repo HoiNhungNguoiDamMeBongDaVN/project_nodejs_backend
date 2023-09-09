@@ -22,6 +22,14 @@ module.exports = {
               name_handbook: {
                 type: Sequelize.STRING
               },
+              descriptionHTML: {
+                allowNull: false,
+                type: Sequelize.TEXT('long')
+              },
+              descriptionMarkdown: {
+                allowNull: false,
+                type: Sequelize.TEXT('long')
+              },
               contentHTML: {
                 allowNull: false,
                 type: Sequelize.TEXT('long')

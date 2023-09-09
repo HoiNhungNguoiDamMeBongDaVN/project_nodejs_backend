@@ -39,6 +39,8 @@ module.exports = function (sequelize, DataTypes) {
   }(Model);
   handbook.init({
     name_handbook: DataTypes.STRING,
+    descriptionHTML: DataTypes.TEXT('long'),
+    descriptionMarkdown: DataTypes.TEXT('long'),
     contentHTML: DataTypes.TEXT('long'),
     contentMarkdown: DataTypes.TEXT('long'),
     image: DataTypes.TEXT

@@ -66,7 +66,38 @@ var handleGetHandbook = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
+var handleGetDetailByIdHandbook = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var infor;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return _handbookService["default"].getDetailByIdHandbook(req.query.id);
+        case 3:
+          infor = _context3.sent;
+          return _context3.abrupt("return", res.status(200).json(infor));
+        case 7:
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](0);
+          console.log(_context3.t0);
+          return _context3.abrupt("return", res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+          }));
+        case 11:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[0, 7]]);
+  }));
+  return function handleGetDetailByIdHandbook(_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}();
 module.exports = {
   handleCreateHandbook: handleCreateHandbook,
-  handleGetHandbook: handleGetHandbook
+  handleGetHandbook: handleGetHandbook,
+  handleGetDetailByIdHandbook: handleGetDetailByIdHandbook
 };

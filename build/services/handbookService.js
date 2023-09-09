@@ -13,7 +13,7 @@ var createHandbook = function createHandbook(data) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            if (!(!data.name_handbook || !data.image || !data.contentHTML || !data.contentMarkdown)) {
+            if (!(!data.name_handbook || !data.imageCloud || !data.idImageCloud || !data.contentHTML || !data.contentMarkdown || !data.descriptionHTML || !data.descriptionMarkdown)) {
               _context.next = 5;
               break;
             }
@@ -29,10 +29,10 @@ var createHandbook = function createHandbook(data) {
               name_handbook: data.name_handbook,
               contentHTML: data.contentHTML,
               contentMarkdown: data.contentMarkdown,
-              image: data.image
-              // contentHTML: "ok",
-              // contentMarkdown: "ok",
-              // image: "ok"
+              image: data.imageCloud,
+              idimage: data.idImageCloud,
+              descriptionHTML: data.descriptionHTML,
+              descriptionMarkdown: data.descriptionMarkdown
             });
           case 7:
             resolve({
@@ -70,12 +70,12 @@ var getHandbook = function getHandbook() {
           case 3:
             data = _context2.sent;
             if (data) {
-              if (data && data.length > 0) {
-                data.map(function (item) {
-                  item.image = Buffer.from(item.image, 'base64').toString('binary');
-                  return item;
-                });
-              }
+              // if (data && data.length > 0) {
+              //     data.map(item => {
+              //         item.image = Buffer.from(item.image, 'base64').toString('binary');
+              //         return item;
+              //     })
+              // }
               resolve({
                 errCode: 0,
                 message: "OK",
@@ -104,7 +104,59 @@ var getHandbook = function getHandbook() {
     };
   }());
 };
+var getDetailByIdHandbook = function getDetailByIdHandbook(handbookID) {
+  return new Promise( /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(resolve, reject) {
+      var data;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return _index["default"].handbook.findOne({
+              where: {
+                id: handbookID
+              }
+            });
+          case 3:
+            data = _context3.sent;
+            if (data) {
+              // if (data && data.length > 0) {
+              //     data.map(item => {
+              //         item.image = Buffer.from(item.image, 'base64').toString('binary');
+              //         return item;
+              //     })
+              // }
+              resolve({
+                errCode: 0,
+                message: "OK",
+                data: data
+              });
+            } else {
+              resolve({
+                errCode: 1,
+                message: "Not found data"
+              });
+            }
+            _context3.next = 10;
+            break;
+          case 7:
+            _context3.prev = 7;
+            _context3.t0 = _context3["catch"](0);
+            reject(_context3.t0);
+          case 10:
+          case "end":
+            return _context3.stop();
+        }
+      }, _callee3, null, [[0, 7]]);
+    }));
+    return function (_x5, _x6) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+};
 module.exports = {
   createHandbook: createHandbook,
-  getHandbook: getHandbook
+  getHandbook: getHandbook,
+  getDetailByIdHandbook: getDetailByIdHandbook
 };
