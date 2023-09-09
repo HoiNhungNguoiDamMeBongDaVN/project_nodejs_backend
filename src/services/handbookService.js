@@ -17,8 +17,8 @@ let createHandbook = (data) => {
                     contentMarkdown: data.contentMarkdown,
                     image: data.imageCloud,
                     idimage: data.idImageCloud,
-                    descriptionHTML: data.descriptionHTML,
-                    descriptionMarkdown: data.descriptionMarkdown
+                    descriptionhtml: data.descriptionHTML,
+                    descriptionmarkdown: data.descriptionMarkdown
                 })
                 resolve({
                     errCode: 0,
