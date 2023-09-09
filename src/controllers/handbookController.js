@@ -26,7 +26,20 @@ let handleGetHandbook = async (req, res) => {
     }
 }
 
+let handleGetDetailByIdHandbook = async (req, res) => {
+    try {
+        let infor = await handbookService.getDetailByIdHandbook(req.query.id);
+        return res.status(200).json(infor)
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+        })
+    }
+}
+
 module.exports = {
     handleCreateHandbook: handleCreateHandbook,
-    handleGetHandbook: handleGetHandbook
+    handleGetHandbook: handleGetHandbook, handleGetDetailByIdHandbook
 }

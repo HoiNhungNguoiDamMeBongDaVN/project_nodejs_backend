@@ -86,6 +86,7 @@ const initRoute = (app) => {
     //API handbook
     router.post('/api/create-handbook', handbookController.handleCreateHandbook);
     router.get('/api/get-all-handbook', handbookController.handleGetHandbook);
+    router.get('/api/get-handbook-by-id', handbookController.handleGetDetailByIdHandbook);
 
     //API count sum doctor, patient, clinic, specialty
     router.get('/api/count-dashboard', handcountController.handleCountDashboard);
@@ -95,6 +96,8 @@ const initRoute = (app) => {
     router.post('/api/upload-image-clound-doctor-admin', imageCloudController.handlePostImageDoctorAdmin);
     router.post('/api/upload-image-clound-specialty', imageCloudController.handlePostImageSpecialty);
     router.post('/api/upload-image-clound-clinic', imageCloudController.handlePostImageClinic);
+    router.post('/api/upload-image-clound-handbook', imageCloudController.handlePostImageHandbook);
+
     router.get('/api/get-image-clound', imageCloudController.getAllImage);
 
 
