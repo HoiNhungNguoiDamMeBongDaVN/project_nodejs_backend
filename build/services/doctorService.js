@@ -384,8 +384,9 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                     _context5.next = 9;
                     return _index["default"].schedules.findAll({
                       // where: { doctorid: data.doctorid, date: data.date },
+                      // where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
                       where: {
-                        doctorid: doctorIdBigInt,
+                        doctorid: data.doctorid,
                         date: _defineProperty({}, Op.eq, new Date(data.date))
                       },
                       attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
