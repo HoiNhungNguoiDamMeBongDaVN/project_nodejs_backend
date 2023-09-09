@@ -40,8 +40,8 @@ class Detail_handBook extends Component {
                             <span className='content'>
                                 {Object.keys(handbook_detail).length > 0 ?
                                     <>
-                                        {handbook_detail && handbook_detail.descriptionHTML &&
-                                            <div dangerouslySetInnerHTML={{ __html: handbook_detail.descriptionHTML }}></div>
+                                        {handbook_detail && handbook_detail.descriptionhtml &&
+                                            <div dangerouslySetInnerHTML={{ __html: handbook_detail.descriptionhtml }}></div>
                                         }
                                     </>
                                     :
