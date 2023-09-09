@@ -70,8 +70,8 @@ class HandbookManage extends Component {
                 name_handbook: name_handbook,
                 contentHTML: contentHTML,
                 contentMarkdown: contentMarkdown,
-                descriptionHTML: descriptionHTML,
-                descriptionMarkdown: descriptionMarkdown,
+                descriptionhtml: descriptionHTML,
+                descriptionmarkdown: descriptionMarkdown,
                 imageCloud: responseImageCloud.data.url,
                 idImageCloud: responseImageCloud.data.asset_id
             }
