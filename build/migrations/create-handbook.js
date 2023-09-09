@@ -22,11 +22,11 @@ module.exports = {
               name_handbook: {
                 type: Sequelize.STRING
               },
-              descriptionHTML: {
+              descriptionhtml: {
                 allowNull: false,
                 type: Sequelize.TEXT('long')
               },
-              descriptionMarkdown: {
+              descriptionmarkdown: {
                 allowNull: false,
                 type: Sequelize.TEXT('long')
               },
