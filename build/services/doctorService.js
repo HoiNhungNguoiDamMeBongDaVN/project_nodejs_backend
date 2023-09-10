@@ -366,7 +366,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                       errCode: 1,
                       message: "Missing required param !"
                     });
-                    _context5.next = 15;
+                    _context5.next = 16;
                     break;
                   case 5:
                     // MAX_NUMBER_SCHEDULE dung để giới hạng số lượng người khám bệnh, ko cho số lượng lớn hơn 10(với 10 là biến hardcode trong file env)
@@ -393,31 +393,33 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                     //check xem du lieu co bi trung ko
                     // dau + de chuyen doi tu string sang number
                     toCreate = _.differenceWith(schedule, exiting, function (a, b) {
-                      return a.timeType === b.timeType && +a.date.getTime() === +b.date.getTime();
+                      return a.timeType === b.timeType && +a.date.toString() === +b.date.toString();
                     });
+                    console.log(exiting, 'ma');
+                    // return;
                     if (!(toCreate && toCreate.length > 0)) {
-                      _context5.next = 14;
+                      _context5.next = 15;
                       break;
                     }
-                    _context5.next = 14;
+                    _context5.next = 15;
                     return _index["default"].schedules.bulkCreate(toCreate);
-                  case 14:
+                  case 15:
                     resolve({
                       errCode: 0,
                       message: "ok"
                     });
-                  case 15:
-                    _context5.next = 20;
+                  case 16:
+                    _context5.next = 21;
                     break;
-                  case 17:
-                    _context5.prev = 17;
+                  case 18:
+                    _context5.prev = 18;
                     _context5.t0 = _context5["catch"](0);
                     reject(_context5.t0);
-                  case 20:
+                  case 21:
                   case "end":
                     return _context5.stop();
                 }
-              }, _callee5, null, [[0, 17]]);
+              }, _callee5, null, [[0, 18]]);
             }));
             return function (_x10, _x11) {
               return _ref6.apply(this, arguments);

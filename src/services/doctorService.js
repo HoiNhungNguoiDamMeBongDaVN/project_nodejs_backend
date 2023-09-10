@@ -237,9 +237,10 @@ let bulkCreateScheduleDoctor = async (data) => {
                 //check xem du lieu co bi trung ko
                 // dau + de chuyen doi tu string sang number
                 let toCreate = _.differenceWith(schedule, exiting, (a, b) => {
-                    return a.timeType === b.timeType && +a.date.getTime() === +b.date.getTime()
+                    return a.timeType === b.timeType && +a.date.toString()  === +b.date.toString() 
                 });
-
+                console.log(exiting,'ma');
+                // return;
                 if (toCreate && toCreate.length > 0) {
                     await db.schedules.bulkCreate(toCreate);
                 }
