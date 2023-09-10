@@ -353,7 +353,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
         case 0:
           return _context6.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(resolve, reject) {
-              var schedule, exiting, toCreate;
+              var schedule, doctorid, exiting, toCreate;
               return _regeneratorRuntime().wrap(function _callee5$(_context5) {
                 while (1) switch (_context5.prev = _context5.next) {
                   case 0:
@@ -374,11 +374,13 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                     if (schedule && schedule.length > 0) {
                       schedule = schedule.map(function (item, index) {
                         item.maxNumber = MAX_NUMBER_SCHEDULE;
+                        item.timeType = item.timeType.toString();
                         return item;
                       });
                     }
                     //check data exist
-                    _context5.next = 9;
+                    doctorid = parseInt(data.doctorid);
+                    _context5.next = 10;
                     return _index["default"].schedules.findAll({
                       where: {
                         doctorid: data.doctorid,
@@ -388,15 +390,13 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                       // where: { doctorid: data.doctorid, date: { [Op.eq]: new Date(data.date) } },
                       attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                     });
-                  case 9:
+                  case 10:
                     exiting = _context5.sent;
                     //check xem du lieu co bi trung ko
                     // dau + de chuyen doi tu string sang number
                     toCreate = _.differenceWith(schedule, exiting, function (a, b) {
-                      return a.timeType === b.timeType && a.date === b.date;
+                      return a.timeType === b.timeType && +a.date === +b.date;
                     });
-                    console.log(exiting, 'ma');
-                    // return;
                     if (!(toCreate && toCreate.length > 0)) {
                       _context5.next = 15;
                       break;
