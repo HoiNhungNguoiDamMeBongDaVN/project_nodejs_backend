@@ -353,7 +353,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
         case 0:
           return _context6.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(resolve, reject) {
-              var schedule, doctorid, exiting, toCreate;
+              var schedule, doctorid, dateBigInt, exiting, toCreate;
               return _regeneratorRuntime().wrap(function _callee5$(_context5) {
                 while (1) switch (_context5.prev = _context5.next) {
                   case 0:
@@ -366,7 +366,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                       errCode: 1,
                       message: "Missing required param !"
                     });
-                    _context5.next = 16;
+                    _context5.next = 17;
                     break;
                   case 5:
                     // MAX_NUMBER_SCHEDULE dung để giới hạng số lượng người khám bệnh, ko cho số lượng lớn hơn 10(với 10 là biến hardcode trong file env)
@@ -380,46 +380,47 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                     }
                     //check data exist
                     doctorid = parseInt(data.doctorid);
-                    _context5.next = 10;
+                    dateBigInt = BigInt(data.date);
+                    _context5.next = 11;
                     return _index["default"].schedules.findAll({
                       where: {
                         doctorid: data.doctorid,
-                        date: data.date
+                        date: dateBigInt
                       },
                       // where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
                       // where: { doctorid: data.doctorid, date: { [Op.eq]: new Date(data.date) } },
                       attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                     });
-                  case 10:
+                  case 11:
                     exiting = _context5.sent;
                     //check xem du lieu co bi trung ko
                     // dau + de chuyen doi tu string sang number
                     toCreate = _.differenceWith(schedule, exiting, function (a, b) {
-                      return a.timeType === b.timeType && +a.date === +b.date;
+                      return a.timeType === b.timeType && a.date === b.date;
                     });
                     if (!(toCreate && toCreate.length > 0)) {
-                      _context5.next = 15;
+                      _context5.next = 16;
                       break;
                     }
-                    _context5.next = 15;
+                    _context5.next = 16;
                     return _index["default"].schedules.bulkCreate(toCreate);
-                  case 15:
+                  case 16:
                     resolve({
                       errCode: 0,
                       message: "ok"
                     });
-                  case 16:
-                    _context5.next = 21;
+                  case 17:
+                    _context5.next = 22;
                     break;
-                  case 18:
-                    _context5.prev = 18;
+                  case 19:
+                    _context5.prev = 19;
                     _context5.t0 = _context5["catch"](0);
                     reject(_context5.t0);
-                  case 21:
+                  case 22:
                   case "end":
                     return _context5.stop();
                 }
-              }, _callee5, null, [[0, 18]]);
+              }, _callee5, null, [[0, 19]]);
             }));
             return function (_x10, _x11) {
               return _ref6.apply(this, arguments);

@@ -230,9 +230,10 @@ let bulkCreateScheduleDoctor = async (data) => {
                 }
                 //check data exist
                 let doctorid = parseInt(data.doctorid);
+                let dateBigInt = BigInt(data.date);
 
                 let exiting = await db.schedules.findAll({
-                    where: { doctorid: data.doctorid, date: data.date },
+                    where: { doctorid: data.doctorid, date: dateBigInt },
                     // where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
                     // where: { doctorid: data.doctorid, date: { [Op.eq]: new Date(data.date) } },
                     attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
@@ -240,7 +241,7 @@ let bulkCreateScheduleDoctor = async (data) => {
                 //check xem du lieu co bi trung ko
                 // dau + de chuyen doi tu string sang number
                 let toCreate = _.differenceWith(schedule, exiting, (a, b) => {
-                    return a.timeType === b.timeType && +a.date  === +b.date 
+                    return a.timeType === b.timeType && a.date  === b.date 
                 });
                 if (toCreate && toCreate.length > 0) {
                     await db.schedules.bulkCreate(toCreate);
