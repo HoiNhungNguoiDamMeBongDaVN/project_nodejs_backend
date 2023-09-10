@@ -393,7 +393,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                     //check xem du lieu co bi trung ko
                     // dau + de chuyen doi tu string sang number
                     toCreate = _.differenceWith(schedule, exiting, function (a, b) {
-                      return a.timeType === b.timeType && +a.date === +b.date;
+                      return a.timeType === b.timeType && +a.date.getTime() === +b.date.getTime();
                     });
                     if (!(toCreate && toCreate.length > 0)) {
                       _context5.next = 14;
