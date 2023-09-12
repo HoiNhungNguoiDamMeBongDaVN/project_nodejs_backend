@@ -353,7 +353,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
         case 0:
           return _context6.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(resolve, reject) {
-              var schedule, doctorid, dateBigInt, exiting, toCreate;
+              var schedule, exiting, toCreate;
               return _regeneratorRuntime().wrap(function _callee5$(_context5) {
                 while (1) switch (_context5.prev = _context5.next) {
                   case 0:
@@ -366,7 +366,7 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                       errCode: 1,
                       message: "Missing required param !"
                     });
-                    _context5.next = 17;
+                    _context5.next = 15;
                     break;
                   case 5:
                     // MAX_NUMBER_SCHEDULE dung để giới hạng số lượng người khám bệnh, ko cho số lượng lớn hơn 10(với 10 là biến hardcode trong file env)
@@ -379,19 +379,17 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                       });
                     }
                     //check data exist
-                    doctorid = parseInt(data.doctorid);
-                    dateBigInt = BigInt(data.date);
-                    _context5.next = 11;
+                    _context5.next = 9;
                     return _index["default"].schedules.findAll({
                       where: {
                         doctorid: data.doctorid,
-                        date: dateBigInt
+                        date: data.date
                       },
                       // where: { doctorid: doctorIdBigInt, date: { [Op.eq]: new Date(data.date) } },
                       // where: { doctorid: data.doctorid, date: { [Op.eq]: new Date(data.date) } },
                       attributes: ['maxNumber', 'date', 'timeType', 'doctorid']
                     });
-                  case 11:
+                  case 9:
                     exiting = _context5.sent;
                     //check xem du lieu co bi trung ko
                     // dau + de chuyen doi tu string sang number
@@ -399,28 +397,28 @@ var bulkCreateScheduleDoctor = /*#__PURE__*/function () {
                       return a.timeType === b.timeType && a.date === b.date;
                     });
                     if (!(toCreate && toCreate.length > 0)) {
-                      _context5.next = 16;
+                      _context5.next = 14;
                       break;
                     }
-                    _context5.next = 16;
+                    _context5.next = 14;
                     return _index["default"].schedules.bulkCreate(toCreate);
-                  case 16:
+                  case 14:
                     resolve({
                       errCode: 0,
                       message: "ok"
                     });
-                  case 17:
-                    _context5.next = 22;
+                  case 15:
+                    _context5.next = 20;
                     break;
-                  case 19:
-                    _context5.prev = 19;
+                  case 17:
+                    _context5.prev = 17;
                     _context5.t0 = _context5["catch"](0);
                     reject(_context5.t0);
-                  case 22:
+                  case 20:
                   case "end":
                     return _context5.stop();
                 }
-              }, _callee5, null, [[0, 19]]);
+              }, _callee5, null, [[0, 17]]);
             }));
             return function (_x10, _x11) {
               return _ref6.apply(this, arguments);
