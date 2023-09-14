@@ -7,9 +7,9 @@ let postImageDoctorAdmin = async (data) => {
             const resUploadCloud = await cloudinary.uploader.upload(flieImage, {
 
                 // use localhost
-                upload_preset: 'image_bookingCare'
+                // upload_preset: 'image_bookingCare'
                 //deploy production
-                // folder: 'image_doctor_admin'
+                folder: 'image_doctor_admin'
             })
             if (resUploadCloud) {
                 resolve({
@@ -41,9 +41,9 @@ let postImageSpecialty = async (data) => {
             let flieImage = data;
             const resUploadCloud = await cloudinary.uploader.upload(flieImage, {
                 // use localhost
-                upload_preset: 'image_bookingCare'
+                // upload_preset: 'image_bookingCare'
                 //deploy production
-                // folder: 'image_specialty'
+                folder: 'image_specialty'
             })
             if (resUploadCloud) {
                 resolve({
@@ -75,9 +75,9 @@ let postImageClinic = async (data) => {
             let flieImage = data;
             const resUploadCloud = await cloudinary.uploader.upload(flieImage, {
                 // use localhost
-                upload_preset: 'image_bookingCare'
+                // upload_preset: 'image_bookingCare'
                 // //deploy production
-                // folder: 'image_clinic'
+                folder: 'image_clinic'
             })
             if (resUploadCloud) {
                 resolve({
@@ -109,9 +109,9 @@ let postImageHandbook = async (data) => {
             let flieImage = data;
             const resUploadCloud = await cloudinary.uploader.upload(flieImage, {
                 // use localhost
-                upload_preset: 'image_bookingCare'
+                // upload_preset: 'image_bookingCare'
                 // //deploy production
-                // folder: 'image_handbook'
+                folder: 'image_handbook'
             })
             if (resUploadCloud) {
                 resolve({
