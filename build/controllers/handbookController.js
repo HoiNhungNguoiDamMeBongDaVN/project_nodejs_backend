@@ -96,8 +96,70 @@ var handleGetDetailByIdHandbook = /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }();
+var handleEditByIdHandbook = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var infor;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _context4.next = 3;
+          return _handbookService["default"].editByIdHandbook(req.body);
+        case 3:
+          infor = _context4.sent;
+          return _context4.abrupt("return", res.status(200).json(infor));
+        case 7:
+          _context4.prev = 7;
+          _context4.t0 = _context4["catch"](0);
+          console.log(_context4.t0);
+          return _context4.abrupt("return", res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+          }));
+        case 11:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4, null, [[0, 7]]);
+  }));
+  return function handleEditByIdHandbook(_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+var handleDeleteByIdHandbook = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
+    var infor;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
+          return _handbookService["default"].deleteByIdHandbook(req.body.id);
+        case 3:
+          infor = _context5.sent;
+          return _context5.abrupt("return", res.status(200).json(infor));
+        case 7:
+          _context5.prev = 7;
+          _context5.t0 = _context5["catch"](0);
+          console.log(_context5.t0);
+          return _context5.abrupt("return", res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+          }));
+        case 11:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5, null, [[0, 7]]);
+  }));
+  return function handleDeleteByIdHandbook(_x9, _x10) {
+    return _ref5.apply(this, arguments);
+  };
+}();
 module.exports = {
   handleCreateHandbook: handleCreateHandbook,
   handleGetHandbook: handleGetHandbook,
-  handleGetDetailByIdHandbook: handleGetDetailByIdHandbook
+  handleGetDetailByIdHandbook: handleGetDetailByIdHandbook,
+  handleEditByIdHandbook: handleEditByIdHandbook,
+  handleDeleteByIdHandbook: handleDeleteByIdHandbook
 };

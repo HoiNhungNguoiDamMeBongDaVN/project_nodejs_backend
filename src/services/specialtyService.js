@@ -160,14 +160,14 @@ let deleteSpecialty=(idSpecialty)=>{
             if (!data) {
                 resolve({
                     errCode: 2,
-                    message: `User ins't user`
+                    message: `specialty ins't specialty`
                 })
             }
             else {
                 await data.destroy();
                 resolve({
                     errCode: 0,
-                    message: `User deleted`
+                    message: `specialty deleted`
                 })
             }
         } catch (error) {

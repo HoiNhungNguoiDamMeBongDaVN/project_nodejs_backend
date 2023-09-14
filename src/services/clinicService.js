@@ -152,7 +152,7 @@ let deleteClinic = async (idClinic) => {
             if (!data) {
                 resolve({
                     errCode: 2,
-                    message: `User ins't user`
+                    message: `Clinic ins't Clinic`
                 })
             }
             else {

@@ -23,9 +23,9 @@ var postImageDoctorAdmin = /*#__PURE__*/function () {
                     _context.next = 4;
                     return cloudinary.uploader.upload(flieImage, {
                       // use localhost
-                      // upload_preset: 'image_bookingCare'
+                      upload_preset: 'image_bookingCare'
                       //deploy production
-                      folder: 'image_doctor_admin'
+                      // folder: 'image_doctor_admin'
                     });
                   case 4:
                     resUploadCloud = _context.sent;
@@ -88,9 +88,9 @@ var postImageSpecialty = /*#__PURE__*/function () {
                     _context3.next = 4;
                     return cloudinary.uploader.upload(flieImage, {
                       // use localhost
-                      // upload_preset: 'image_bookingCare'
+                      upload_preset: 'image_bookingCare'
                       //deploy production
-                      folder: 'image_specialty'
+                      // folder: 'image_specialty'
                     });
                   case 4:
                     resUploadCloud = _context3.sent;
@@ -153,9 +153,9 @@ var postImageClinic = /*#__PURE__*/function () {
                     _context5.next = 4;
                     return cloudinary.uploader.upload(flieImage, {
                       // use localhost
-                      // upload_preset: 'image_bookingCare'
+                      upload_preset: 'image_bookingCare'
                       // //deploy production
-                      folder: 'image_clinic'
+                      // folder: 'image_clinic'
                     });
                   case 4:
                     resUploadCloud = _context5.sent;
@@ -218,9 +218,9 @@ var postImageHandbook = /*#__PURE__*/function () {
                     _context7.next = 4;
                     return cloudinary.uploader.upload(flieImage, {
                       // use localhost
-                      // upload_preset: 'image_bookingCare'
+                      upload_preset: 'image_bookingCare'
                       // //deploy production
-                      folder: 'image_handbook'
+                      // folder: 'image_handbook'
                     });
                   case 4:
                     resUploadCloud = _context7.sent;

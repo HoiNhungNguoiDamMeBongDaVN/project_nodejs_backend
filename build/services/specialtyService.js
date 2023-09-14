@@ -299,7 +299,7 @@ var deleteSpecialty = function deleteSpecialty(idSpecialty) {
             }
             resolve({
               errCode: 2,
-              message: "User ins't user"
+              message: "specialty ins't specialty"
             });
             _context7.next = 11;
             break;
@@ -309,7 +309,7 @@ var deleteSpecialty = function deleteSpecialty(idSpecialty) {
           case 10:
             resolve({
               errCode: 0,
-              message: "User deleted"
+              message: "specialty deleted"
             });
           case 11:
             _context7.next = 16;

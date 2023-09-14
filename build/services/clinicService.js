@@ -297,7 +297,7 @@ var deleteClinic = /*#__PURE__*/function () {
                     }
                     resolve({
                       errCode: 2,
-                      message: "User ins't user"
+                      message: "Clinic ins't Clinic"
                     });
                     _context8.next = 11;
                     break;

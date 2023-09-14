@@ -77,6 +77,8 @@ var initRoute = function initRoute(app) {
   router.post('/api/create-handbook', _handbookController["default"].handleCreateHandbook);
   router.get('/api/get-all-handbook', _handbookController["default"].handleGetHandbook);
   router.get('/api/get-handbook-by-id', _handbookController["default"].handleGetDetailByIdHandbook);
+  router.put('/api/edit-handbook-by-id', _handbookController["default"].handleEditByIdHandbook);
+  router["delete"]('/api/delete-handbook-by-id', _handbookController["default"].handleDeleteByIdHandbook);
 
   //API count sum doctor, patient, clinic, specialty
   router.get('/api/count-dashboard', _countController["default"].handleCountDashboard);

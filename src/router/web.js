@@ -87,6 +87,8 @@ const initRoute = (app) => {
     router.post('/api/create-handbook', handbookController.handleCreateHandbook);
     router.get('/api/get-all-handbook', handbookController.handleGetHandbook);
     router.get('/api/get-handbook-by-id', handbookController.handleGetDetailByIdHandbook);
+    router.put('/api/edit-handbook-by-id', handbookController.handleEditByIdHandbook);
+    router.delete('/api/delete-handbook-by-id', handbookController.handleDeleteByIdHandbook);
 
     //API count sum doctor, patient, clinic, specialty
     router.get('/api/count-dashboard', handcountController.handleCountDashboard);

@@ -39,7 +39,35 @@ let handleGetDetailByIdHandbook = async (req, res) => {
     }
 }
 
+let handleEditByIdHandbook = async (req, res) => {
+    try {
+        let infor = await handbookService.editByIdHandbook(req.body);
+        return res.status(200).json(infor)
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+        })
+    }
+}
+
+
+let handleDeleteByIdHandbook = async (req, res) => {
+    try {
+        let infor = await handbookService.deleteByIdHandbook(req.body.id);
+        return res.status(200).json(infor)
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({
+            errCode: -1,
+            message: "Error form server"
+        })
+    }
+}
+
+
 module.exports = {
     handleCreateHandbook: handleCreateHandbook,
-    handleGetHandbook: handleGetHandbook, handleGetDetailByIdHandbook
+    handleGetHandbook: handleGetHandbook, handleGetDetailByIdHandbook, handleEditByIdHandbook, handleDeleteByIdHandbook
 }

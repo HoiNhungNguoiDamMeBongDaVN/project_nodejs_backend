@@ -13,7 +13,7 @@ var createHandbook = function createHandbook(data) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            if (!(!data.name_handbook || !data.imageCloud || !data.idImageCloud || !data.contentHTML || !data.contentMarkdown || !data.descriptionHTML || !data.descriptionMarkdown)) {
+            if (!(!data.name_handbook || !data.imageCloud || !data.idImageCloud || !data.contentHTML || !data.contentMarkdown || !data.descriptionhtml || !data.descriptionmarkdown)) {
               _context.next = 5;
               break;
             }
@@ -31,8 +31,8 @@ var createHandbook = function createHandbook(data) {
               contentMarkdown: data.contentMarkdown,
               image: data.imageCloud,
               idimage: data.idImageCloud,
-              descriptionhtml: data.descriptionHTML,
-              descriptionmarkdown: data.descriptionMarkdown
+              descriptionhtml: data.descriptionhtml,
+              descriptionmarkdown: data.descriptionmarkdown
             });
           case 7:
             resolve({
@@ -155,8 +155,131 @@ var getDetailByIdHandbook = function getDetailByIdHandbook(handbookID) {
     };
   }());
 };
+var editByIdHandbook = function editByIdHandbook(data) {
+  return new Promise( /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(resolve, reject) {
+      var updatedRows;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            if (!(!data.name_handbook || !data.imageCloud || !data.contentHTML || !data.contentMarkdown || !data.descriptionhtml || !data.descriptionmarkdown)) {
+              _context4.next = 5;
+              break;
+            }
+            resolve({
+              errCode: 1,
+              message: "Missing parameter"
+            });
+            _context4.next = 9;
+            break;
+          case 5:
+            _context4.next = 7;
+            return _index["default"].handbook.update({
+              name_handbook: data.name_handbook,
+              contentHTML: data.contentHTML,
+              contentMarkdown: data.contentMarkdown,
+              descriptionhtml: data.descriptionhtml,
+              descriptionmarkdown: data.descriptionmarkdown,
+              image: data.imageCloud,
+              idimage: data.idImageCloud
+            }, {
+              where: {
+                id: data.id
+              }
+            });
+          case 7:
+            updatedRows = _context4.sent;
+            if (!updatedRows) {
+              resolve({
+                errCode: 2,
+                message: "Cand't Update "
+              });
+            } else {
+              resolve({
+                errCode: 0,
+                message: 'Updated user'
+              });
+            }
+          case 9:
+            resolve({
+              errCode: 1,
+              message: "Missing parameter"
+            });
+            _context4.next = 15;
+            break;
+          case 12:
+            _context4.prev = 12;
+            _context4.t0 = _context4["catch"](0);
+            reject(_context4.t0);
+          case 15:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4, null, [[0, 12]]);
+    }));
+    return function (_x7, _x8) {
+      return _ref4.apply(this, arguments);
+    };
+  }());
+};
+var deleteByIdHandbook = function deleteByIdHandbook(id) {
+  return new Promise( /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(resolve, reject) {
+      var data;
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            _context5.next = 3;
+            return _index["default"].handbook.findOne({
+              where: {
+                id: id
+              },
+              raw: false
+            });
+          case 3:
+            data = _context5.sent;
+            if (data) {
+              _context5.next = 8;
+              break;
+            }
+            resolve({
+              errCode: 2,
+              message: "Handbook ins't Handbook"
+            });
+            _context5.next = 11;
+            break;
+          case 8:
+            _context5.next = 10;
+            return data.destroy();
+          case 10:
+            resolve({
+              errCode: 0,
+              message: "Handbook deleted"
+            });
+          case 11:
+            _context5.next = 16;
+            break;
+          case 13:
+            _context5.prev = 13;
+            _context5.t0 = _context5["catch"](0);
+            reject(_context5.t0);
+          case 16:
+          case "end":
+            return _context5.stop();
+        }
+      }, _callee5, null, [[0, 13]]);
+    }));
+    return function (_x9, _x10) {
+      return _ref5.apply(this, arguments);
+    };
+  }());
+};
 module.exports = {
   createHandbook: createHandbook,
   getHandbook: getHandbook,
-  getDetailByIdHandbook: getDetailByIdHandbook
+  getDetailByIdHandbook: getDetailByIdHandbook,
+  editByIdHandbook: editByIdHandbook,
+  deleteByIdHandbook: deleteByIdHandbook
 };
